@@ -7,7 +7,7 @@ import { redisClient } from '../db/redis/init';
 // @desc    Get all teachers
 // @route   GET /api/teachers
 // @access  Public
-export const getTeachers = async (_req: Request, res: Response) => {
+export const getTeachers = async (_req: Request, res: Response): Promise<any> => {
   try {
     const teachers = await Teacher.find();
     res.status(200).json({ success: true, data: teachers });
@@ -19,7 +19,7 @@ export const getTeachers = async (_req: Request, res: Response) => {
 // @desc    Get single teacher
 // @route   GET /api/teachers/:id
 // @access  Public
-export const getTeacher = async (req: Request, res: Response) => {
+export const getTeacher = async (req: Request, res: Response): Promise<any> => {
   try {
     const teacher = await Teacher.findById(req.params.id);
     
@@ -36,7 +36,7 @@ export const getTeacher = async (req: Request, res: Response) => {
 // @desc    Get all students of a teacher
 // @route   GET /api/teachers/:id/students
 // @access  Public
-export const getTeacherStudents = async (req: Request, res: Response) => {
+export const getTeacherStudents = async (req: Request, res: Response): Promise<any> => {
   try {
     const students = await Student.find({ teacher: req.params.id });
     res.status(200).json({ success: true, data: students });
@@ -48,7 +48,7 @@ export const getTeacherStudents = async (req: Request, res: Response) => {
 // @desc    Create new teacher
 // @route   POST /api/teachers
 // @access  Public
-export const createTeacher = async (req: Request, res: Response) => {
+export const createTeacher = async (req: Request, res: Response): Promise<any> => {
   try {
     const teacher = await Teacher.create(req.body);
     
@@ -64,7 +64,7 @@ export const createTeacher = async (req: Request, res: Response) => {
 // @desc    Update teacher
 // @route   PUT /api/teachers/:id
 // @access  Public
-export const updateTeacher = async (req: Request, res: Response) => {
+export const updateTeacher = async (req: Request, res: Response): Promise<any> => {
   try {
     const teacher = await Teacher.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
@@ -89,7 +89,7 @@ export const updateTeacher = async (req: Request, res: Response) => {
 // @desc    Delete teacher
 // @route   DELETE /api/teachers/:id
 // @access  Public
-export const deleteTeacher = async (req: Request, res: Response) => {
+export const deleteTeacher = async (req: Request, res: Response): Promise<any> => {
   try {
     const teacher = await Teacher.findById(req.params.id);
     

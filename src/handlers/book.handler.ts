@@ -6,7 +6,7 @@ import { redisClient } from '../db/redis/init';
 // @desc    Get all books
 // @route   GET /api/books
 // @access  Public
-export const getBooks = async (_req: Request, res: Response) => {
+export const getBooks = async (_req: Request, res: Response): Promise<any> => {
   try {
     const books = await Book.find();
     res.status(200).json({ success: true, data: books });
@@ -18,7 +18,7 @@ export const getBooks = async (_req: Request, res: Response) => {
 // @desc    Get single book
 // @route   GET /api/books/:id
 // @access  Public
-export const getBook = async (req: Request, res: Response) => {
+export const getBook = async (req: Request, res: Response): Promise<any> => {
   try {
     const book = await Book.findById(req.params.id);
     
@@ -35,7 +35,7 @@ export const getBook = async (req: Request, res: Response) => {
 // @desc    Create new book
 // @route   POST /api/books
 // @access  Public
-export const createBook = async (req: Request, res: Response) => {
+export const createBook = async (req: Request, res: Response): Promise<any> => {
   try {
     const book = await Book.create(req.body);
     
@@ -51,7 +51,7 @@ export const createBook = async (req: Request, res: Response) => {
 // @desc    Update book
 // @route   PUT /api/books/:id
 // @access  Public
-export const updateBook = async (req: Request, res: Response) => {
+export const updateBook = async (req: Request, res: Response): Promise<any> => {
   try {
     const book = await Book.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
@@ -82,7 +82,7 @@ export const updateBook = async (req: Request, res: Response) => {
 // @desc    Delete book
 // @route   DELETE /api/books/:id
 // @access  Public
-export const deleteBook = async (req: Request, res: Response) => {
+export const deleteBook = async (req: Request, res: Response): Promise<any> => {
   try {
     const book = await Book.findById(req.params.id);
     

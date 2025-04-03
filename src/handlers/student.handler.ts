@@ -8,7 +8,7 @@ import mongoose from 'mongoose';
 // @desc    Get all students
 // @route   GET /api/students
 // @access  Public
-export const getStudents = async (_req: Request, res: Response) => {
+export const getStudents = async (_req: Request, res: Response): Promise<any> => {
   try {
     const students = await Student.find();
     res.status(200).json({ success: true, data: students });
@@ -20,7 +20,7 @@ export const getStudents = async (_req: Request, res: Response) => {
 // @desc    Get single student
 // @route   GET /api/students/:id
 // @access  Public
-export const getStudent = async (req: Request, res: Response) => {
+export const getStudent = async (req: Request, res: Response): Promise<any> => {
   try {
     const student = await Student.findById(req.params.id);
     
@@ -37,7 +37,7 @@ export const getStudent = async (req: Request, res: Response) => {
 // @desc    Get all books of a student
 // @route   GET /api/students/:id/books
 // @access  Public
-export const getStudentBooks = async (req: Request, res: Response) => {
+export const getStudentBooks = async (req: Request, res: Response): Promise<any> => {
   try {
     const student = await Student.findById(req.params.id).populate('books');
     
@@ -54,7 +54,7 @@ export const getStudentBooks = async (req: Request, res: Response) => {
 // @desc    Create new student
 // @route   POST /api/students
 // @access  Public
-export const createStudent = async (req: Request, res: Response) => {
+export const createStudent = async (req: Request, res: Response): Promise<any> => {
   try {
     const { teacherId, ...studentData } = req.body;
     
@@ -95,7 +95,7 @@ export const createStudent = async (req: Request, res: Response) => {
 // @desc    Update student
 // @route   PUT /api/students/:id
 // @access  Public
-export const updateStudent = async (req: Request, res: Response) => {
+export const updateStudent = async (req: Request, res: Response): Promise<any> => {
   try {
     const { teacherId, ...studentData } = req.body;
     
@@ -153,7 +153,7 @@ export const updateStudent = async (req: Request, res: Response) => {
 // @desc    Delete student
 // @route   DELETE /api/students/:id
 // @access  Public
-export const deleteStudent = async (req: Request, res: Response) => {
+export const deleteStudent = async (req: Request, res: Response): Promise<any> => {
   try {
     const student = await Student.findById(req.params.id);
     
@@ -194,7 +194,7 @@ export const deleteStudent = async (req: Request, res: Response) => {
 // @desc    Assign book to student
 // @route   POST /api/students/:id/books/:bookId
 // @access  Public
-export const assignBook = async (req: Request, res: Response) => {
+export const assignBook = async (req: Request, res: Response): Promise<any> => {
   try {
     const student = await Student.findById(req.params.id);
     const book = await Book.findById(req.params.bookId);
@@ -240,7 +240,7 @@ export const assignBook = async (req: Request, res: Response) => {
 // @desc    Return book from student
 // @route   DELETE /api/students/:id/books/:bookId
 // @access  Public
-export const returnBook = async (req: Request, res: Response) => {
+export const returnBook = async (req: Request, res: Response): Promise<any> => {
   try {
     const student = await Student.findById(req.params.id);
     const book = await Book.findById(req.params.bookId);
