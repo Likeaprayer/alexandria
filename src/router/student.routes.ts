@@ -9,21 +9,22 @@ import {
   assignBook,
   returnBook,
 } from '../handlers/student.handler';
+import { cacheMiddleware } from '../middleware/cache-middleware';
 
 
 const router = express.Router();
 
 router.route('/')
-  .get(getStudents)
+  .get(cacheMiddleware(), getStudents)
   .post(createStudent);
 
 router.route('/:id')
-  .get(getStudent)
+  .get(cacheMiddleware(), getStudent)
   .put(updateStudent)
   .delete(deleteStudent);
 
 router.route('/:id/books')
-  .get(getStudentBooks);
+  .get(cacheMiddleware(), getStudentBooks);
 
 router.route('/:id/books/:bookId')
   .post(assignBook)

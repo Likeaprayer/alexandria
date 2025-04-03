@@ -7,20 +7,21 @@ import {
   updateTeacher,
   deleteTeacher,
 } from '../handlers/teacher.handler';
+import { cacheMiddleware } from '../middleware/cache-middleware';
 
 
 const router = express.Router();
 
 router.route('/')
-  .get(getTeachers)
+  .get(cacheMiddleware(), getTeachers)
   .post(createTeacher);
 
 router.route('/:id')
-  .get(getTeacher)
+  .get(cacheMiddleware(), getTeacher)
   .put(updateTeacher)
   .delete(deleteTeacher);
 
 router.route('/:id/students')
-  .get(getTeacherStudents);
+  .get(cacheMiddleware(), getTeacherStudents);
 
 export default router;

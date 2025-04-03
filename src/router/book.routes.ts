@@ -6,16 +6,17 @@ import {
   updateBook,
   deleteBook,
 } from '../handlers/book.handler';
+import { cacheMiddleware } from '../middleware/cache-middleware';
 
 
 const router = express.Router();
 
 router.route('/')
-  .get( getBooks)
+  .get(cacheMiddleware(), getBooks)
   .post(createBook);
 
 router.route('/:id')
-  .get(getBook)
+  .get(cacheMiddleware(), getBook)
   .put(updateBook)
   .delete(deleteBook);
 
