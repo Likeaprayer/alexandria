@@ -6,12 +6,13 @@ import routes from "./router";
 // import { Authorize } from "./common/middleware/auth.middleware";
 import { errorHandlingMiddleware } from "./middleware/error.middleware";
 import { connect } from "mongoose";
+import apolloServer from "./graphql/schema";
 
 
 dotenv.config();
 
 // Initialize express app
-const app = express();
+const app = express() as express.Application | any;
 
 // Connect to MongoDB
 connect(process.env.NODE_ENV! == 'production' ? process.env.MONGO_URI_PROD! : process.env.MONGO_URI_DEV!)
@@ -24,6 +25,17 @@ connect(process.env.NODE_ENV! == 'production' ? process.env.MONGO_URI_PROD! : pr
 app.use(express.json());
 
 app.use(express.urlencoded({ extended: true }));
+
+async function startApolloServer() {
+  await apolloServer.start();
+  
+  // Apply Apollo Express Middleware
+  apolloServer.applyMiddleware({ app, path: '/graphql' });
+  
+  console.log(`GraphQL server ready at http://localhost:${process.env.PORT}${apolloServer.graphqlPath}`);
+}
+
+startApolloServer();
 
 
 app.use('/api',routes);
